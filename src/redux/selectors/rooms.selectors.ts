@@ -1,0 +1,13 @@
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../utils/types/redux.types';
+import { Room } from '../../utils/types/rooms.types';
+
+export const getRooms = (state: RootState) => state.rooms.rooms;
+
+export const getCurrentRoom = (state: RootState) => state.rooms.currentRoom as Room;
+
+export const getRoomUsers = createSelector(getCurrentRoom, (room) => room.users);
+
+export const getRoomId = createSelector(getCurrentRoom, (room) => room.id);
+
+export const getIsConnected = (state: RootState) => state.rooms.isConnected;

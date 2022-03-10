@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { AppComponent } from './main/components/AppComponent/AppComponent';
+import { store } from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+import 'ace-builds/webpack-resolver';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/theme-github';
+import 'ace-builds/src-noconflict/ext-language_tools';
+
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppComponent />
+      </BrowserRouter>
+    </Provider>
   );
 }
-
-export default App;
