@@ -19,7 +19,7 @@ export const Carets: React.FC = () => {
                 className="caret-name"
                 style={{
                   top: `${
-                    20 * (user.editor.position.x ?? 0) + 20 - (user.editor.position.x ?? 0)
+                    20 * (user.editor.position.x ?? 0) + 50 - (user.editor.position.x ?? 0)
                   }px`,
                   left: `${
                     8.9 * (user.editor.position.y ?? 0) + 52 - (user.editor.position.y ?? 0) / 2
@@ -35,7 +35,7 @@ export const Carets: React.FC = () => {
                 style={{
                   // background: `#${((Math.random() * 0xffffff) << 0).toString(16)}`,
                   top: `${
-                    20 * (user.editor.position.x ?? 0) + 48 - (user.editor.position.x ?? 0)
+                    20 * (user.editor.position.x ?? 0) + 69 - (user.editor.position.x ?? 0)
                   }px`,
                   left: `${
                     8.9 * (user.editor.position.y ?? 0) + 52 - (user.editor.position.y ?? 0) / 2

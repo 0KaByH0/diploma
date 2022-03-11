@@ -38,10 +38,14 @@ const userSlice = createSlice({
     setIsAuth: (state, { payload }: PayloadAction<boolean>) => {
       state.isAuth = payload;
     },
+    refreshCursor: (
+      state,
+      { payload }: PayloadAction<{ position: { x?: number; y?: number } }>,
+    ) => {
+      state.editor.position = payload.position;
+    },
   },
-  extraReducers: (builder) => {
-    // builder.addCase(RoomsActions.refreshRoom, s);
-  },
+  extraReducers: (builder) => {},
 });
 
 export const { actions: UserActions, reducer: user } = userSlice;

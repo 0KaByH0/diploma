@@ -3,7 +3,6 @@ import { useDebounce } from '../../../utils/hooks/useDebounce';
 
 import AceEditor from 'react-ace';
 
-import { TEMPLATES } from '../../../utils/consts/editor.consts';
 import { Languages } from '../../../utils/types/app.types';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks/redux';
 
@@ -16,7 +15,6 @@ import {
 import './Editor.style.scss';
 import { RoomsActions } from '../../../redux/slices/rooms.slice';
 import { Carets } from '../../components/Carets/Carets';
-import { getUser } from '../../../redux/selectors/user.selectors';
 import { codeAction, cursorAction, leaveAction } from '../../../redux/actions/sagaActions';
 
 export const Editor: React.FC = () => {
@@ -28,8 +26,6 @@ export const Editor: React.FC = () => {
   const [code, setCode] = React.useState('');
   const [lang, setLang] = React.useState(Languages.JAVASCRIPT);
   const [theme, setTheme] = React.useState('github');
-
-  const [position, setPosition] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const debounce = useDebounce(code, 1500);
 
@@ -63,11 +59,12 @@ export const Editor: React.FC = () => {
   }
 
   const onCursorChange = (e: any) => {
-    setPosition({
-      x: e.cursor.row,
-      y: e.cursor.column,
-    });
     dispatch(cursorAction({ x: e.cursor.row, y: e.cursor.column }));
+  };
+
+  const onSelectionChange = (v: any, e?: any) => {
+    // console.log({ v, e });
+    // dispatch(selectionAction({ start: e.cursor.row, end: e.cursor.column }));
   };
 
   return (
@@ -77,17 +74,19 @@ export const Editor: React.FC = () => {
       ) : (
         <div>
           <div>
-            Users:{' '}
+            Users:
             {users?.map((user, index) => (
-              <span>{user.name} </span>
+              <span> {user.name} </span>
             ))}
           </div>
           <AceEditor
+            focus
             placeholder="Placeholder Text"
             mode={lang}
             theme={theme}
             name="editor"
             onChange={onChange}
+            onSelectionChange={onSelectionChange}
             onCursorChange={onCursorChange}
             fontSize={14}
             showPrintMargin={true}

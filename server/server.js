@@ -6,8 +6,6 @@ const wsServer = new WebSocket.Server({ port: 5002 });
 const app = express();
 
 // UTILS
-const normalizeRoom = (room) => ({ ...room, users: room.users.map((user) => user.userName) });
-
 const sendAll = (message, roomUsers) =>
   roomUsers.forEach((user) => user.wsClient.send(JSON.stringify(message)));
 
@@ -73,11 +71,7 @@ function onConnect(wsClient) {
 
           wsClient.send(JSON.stringify({ type: MESSAGES.CONNECTED, room: userRoom }));
 
-          sendAll(
-            { type: MESSAGES.USER_CONNECTED, room: { ...userRoom, clients: undefined } },
-            userRoom.clients,
-          );
-
+          sendAll({ type: MESSAGES.USER_CONNECTED, users: userRoom.users }, userRoom.clients);
           break;
 
         case MESSAGES.CODE:
@@ -90,10 +84,7 @@ function onConnect(wsClient) {
           const user = userRoom.users.find((user) => user.id === parsedMessage.user.id);
           user.editor.position = { ...parsedMessage.position };
 
-          sendAll(
-            { type: MESSAGES.CURSOR, room: { ...userRoom, clients: undefined } },
-            userRoom.clients,
-          );
+          sendAll({ type: MESSAGES.CURSOR, users: userRoom.users }, userRoom.clients);
           break;
 
         case MESSAGES.LEAVE:
@@ -101,18 +92,15 @@ function onConnect(wsClient) {
             room.id === userRoom.id
               ? {
                   ...userRoom,
-                  users: room.clients.filter((user) => user.id !== parsedMessage.userId),
-                  clients: room.clients.filter((user) => user.id !== parsedMessage.userId),
+                  users: room.users.filter((user) => user.id !== parsedMessage.userId),
+                  clients: room.clients.filter((client) => client.id !== parsedMessage.userId),
                 }
               : room,
           );
 
           const disConectedRoom = rooms.find((room) => room.id === userRoom.id);
-
-          // wsClient.send(JSON.stringify({ type: MESSAGES.CODE, code: parsedMessage.code }));
-
           sendAll(
-            { type: MESSAGES.USER_DISCONNECTED, room: disConectedRoom },
+            { type: MESSAGES.USER_DISCONNECTED, users: disConectedRoom.users },
             disConectedRoom.clients,
           );
           break;

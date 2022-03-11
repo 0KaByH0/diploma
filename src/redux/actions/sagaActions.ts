@@ -8,18 +8,25 @@ export const userAction = {
 };
 
 export const roomsAction = {
-  ROOMS: 'ROOMS',
+  START_FETCH_ROOMS: 'START_FETCHING_ROOMS',
+  STOP_FETCH_ROOMS: 'STOP_FETCHING_ROOMS',
   JOIN: 'JOIN',
   LEAVE: 'LEAVE',
   CODE: 'CODE',
   CURSOR: 'CURSOR',
 };
 
+export const editorAction = {
+  CODE: 'CODE',
+  CURSOR: 'CURSOR',
+};
+
 // ROOMS ACTIONS
+export const startFetchingRooms = createAction(roomsAction.START_FETCH_ROOMS);
 
-export const codeAction = createAction<string>(roomsAction.CODE);
+export const stopFetchingRooms = createAction(roomsAction.STOP_FETCH_ROOMS);
 
-export const cursorAction = createAction<{ x: number; y: number }>(roomsAction.CURSOR);
+export const joinRoomAction = createAction<number>(roomsAction.JOIN);
 
 export const leaveAction = createAction(roomsAction.LEAVE);
 
@@ -29,3 +36,8 @@ export const signInAction = createAction<{ email: string; password: string }>(us
 export const signUpAction = createAction<User>(userAction.SIGN_UP);
 
 export const signOutAction = createAction(userAction.SIGN_OUT);
+
+// EDITOR ACTIONS
+export const codeAction = createAction<string>(editorAction.CODE);
+
+export const cursorAction = createAction<{ x: number; y: number }>(editorAction.CURSOR);

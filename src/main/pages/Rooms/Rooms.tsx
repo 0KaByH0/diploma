@@ -1,6 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import {
+  joinRoomAction,
+  startFetchingRooms,
+  stopFetchingRooms,
+} from '../../../redux/actions/sagaActions';
 import { getRooms } from '../../../redux/selectors/rooms.selectors';
 import { useAppSelector } from '../../../utils/hooks/redux';
 
@@ -10,11 +15,14 @@ export const Rooms: React.FC = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    dispatch({ type: 'ROOMS' });
+    dispatch(startFetchingRooms());
+    return () => {
+      dispatch(stopFetchingRooms());
+    };
   }, []);
 
   const onRoomEnterned = (roomId: number) => {
-    dispatch({ type: 'JOIN', payload: roomId });
+    dispatch(joinRoomAction(roomId));
     navigate(`/rooms/${roomId}`);
   };
 
