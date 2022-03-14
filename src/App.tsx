@@ -8,6 +8,8 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-github';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
+import './App.styles.scss';
+
 export function App() {
   return (
     <Provider store={store}>

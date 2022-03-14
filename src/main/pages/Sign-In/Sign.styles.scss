@@ -1,0 +1,206 @@
+$baseBtn: black;
+
+$baseBtnGreen: rgb(0, 216, 36);
+$baseBtnGreenShadow: rgba(30, 255, 0, 0.747);
+
+$baseBtnBlue: #2a93fcee;
+$baseBtnBlueShadow: #2a93fc5b;
+
+.form-wrapper {
+  width: 100%;
+  height: 821px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2rem;
+
+  section {
+    background-color: black;
+    color: white;
+    display: grid;
+    align-content: center;
+    grid-template-rows: 30%;
+    user-select: none;
+
+    div {
+      margin-left: 20%;
+
+      h2 {
+        font-size: 34px;
+        font-weight: 400;
+      }
+
+      h3 {
+        margin-top: 10%;
+        font-size: 22px;
+        font-weight: 200;
+        line-height: 30px;
+      }
+    }
+  }
+
+  form {
+    .sign-in {
+      height: 300px;
+    }
+    .sign-up {
+      height: 600px;
+    }
+
+    width: 440px;
+    margin: auto;
+
+    label {
+      font-size: 1.375rem;
+      display: block;
+      margin-bottom: 9px;
+    }
+
+    p {
+      text-align: left;
+      color: red;
+      border-radius: 0.35rem;
+      font-size: 1.1rem;
+      cursor: default;
+      margin-bottom: 5px;
+    }
+
+    input[type='email'],
+    input[type='text'],
+    input[type='password'] {
+      width: 100%;
+      max-height: 50px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 5px;
+      font-display: swap;
+
+      color: #495057;
+      background-color: #fff;
+      border: 2.5px solid rgba(79, 105, 153, 0.4);
+      border-radius: 0.35rem;
+
+      -webkit-transition: 0.8s;
+      transition: 0.8s;
+      outline: none;
+
+      line-height: 1.4;
+      font-size: 1.2rem;
+
+      &:hover {
+        border: 2.5px solid #2a93fc;
+        box-shadow: 1px 2px 2px 2px #2a93fc41;
+      }
+      &:focus {
+        border: 2.5px solid #2a93fc;
+        box-shadow: 1px 2px 2px 2px #2a93fc3b;
+      }
+    }
+
+    div.form-policy {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      margin-bottom: 9px;
+
+      label {
+        margin: 0 20px 0 0;
+      }
+
+      input[type='checkbox'] {
+        width: 20px;
+        height: 20px;
+        padding: 10px;
+        cursor: pointer;
+
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: rgb(0, 0, 0);
+        margin: 0px;
+
+        color: rgb(0, 0, 0);
+        border: 0.15em solid rgb(0, 0, 0);
+        border-radius: 0.275em;
+        transform: translateY(-0.075em);
+
+        transition: background-color 0.5s ease;
+
+        display: grid;
+        place-content: center;
+
+        &::before {
+          content: '';
+          width: 15px;
+          height: 15px;
+          transform: scale(0);
+          transition: 120ms transform ease-in-out;
+          box-shadow: inset 1em 1em rgb(255, 255, 255);
+
+          clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        &:checked::before {
+          transform: scale(1);
+        }
+        &:not(:checked) {
+          background-color: rgb(255, 255, 255);
+        }
+      }
+    }
+
+    div.form-buttons {
+      margin-top: 25px;
+
+      :nth-child(1) {
+        margin-right: 20px;
+        background-color: rgb(0, 0, 0);
+
+        &:hover {
+          background-color: $baseBtnGreen;
+          border: 1px solid $baseBtnGreen;
+          box-shadow: 1px 2px 2px 2px $baseBtnGreenShadow;
+        }
+      }
+
+      :nth-child(2) {
+        margin-right: 20px;
+        background-color: black;
+
+        &:hover {
+          background-color: $baseBtnBlue;
+          color: rgb(255, 255, 255);
+          border: 1px solid $baseBtnBlue;
+          box-shadow: 1px 2px 2px 2px $baseBtnBlueShadow;
+        }
+      }
+    }
+
+    input[type='submit'],
+    input[type='button'] {
+      padding: 10px 20px;
+      color: white;
+      cursor: pointer;
+
+      border: 1px solid black;
+      border-radius: 0.475rem;
+
+      font-family: 'Lato', sans-serif;
+      font-size: 18px;
+
+      -webkit-transition: 0.6s;
+      transition: 0.6s;
+    }
+
+    input.error {
+      border: 2.5px solid red;
+
+      &:hover {
+        border: 2.5px solid red;
+        box-shadow: 1px 2px 2px 2px rgba(255, 0, 0, 0.5);
+      }
+      &:focus {
+        border: 2.5px solid red;
+        box-shadow: 1px 2px 2px 2px rgba(255, 0, 0, 0.466);
+      }
+    }
+  }
+}

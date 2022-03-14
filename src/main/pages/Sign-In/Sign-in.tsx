@@ -1,20 +1,24 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useField } from '../../../utils/hooks/useField';
 import { getIsAuthed } from '../../../redux/selectors/user.selectors';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks/redux';
 import { signInAction } from '../../../redux/actions/sagaActions';
 
+import './Sign.styles.scss';
+
 export const SignIn: React.FC = () => {
   const dispatch = useAppDispatch();
-  const isAuthed = useAppSelector(getIsAuthed);
   const navigate = useNavigate();
+  const isAuthed = useAppSelector(getIsAuthed);
 
-  const [email, setEmail] = useField('');
-  const [password, setPassword] = useField('');
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-  const onLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onLogin = ({ email, password }: { [x: string]: string }) => {
     dispatch(signInAction({ email, password }));
   };
 
@@ -25,15 +29,42 @@ export const SignIn: React.FC = () => {
   }, [isAuthed]);
 
   return (
-    <div>
-      <form onSubmit={onLogin}>
-        <input placeholder="UserName" type="text" value={email} onChange={setEmail}></input>
+    <div className="form-wrapper">
+      <section>
+        <div>
+          <h2>Online Editor</h2>
+          <h2>Sign In</h2>
+          <h3>
+            Best online editor ever
+            <br />
+            Login or Register to start using
+            <br />
+            Some other information
+          </h3>
+        </div>
+      </section>
+      <form className="sign-in" onSubmit={handleSubmit(onLogin)} autoComplete="off">
+        {/* Email */}
+        <label>Email</label>
         <input
-          placeholder="Password"
+          className={errors.email?.type === 'required' ? 'error' : ''}
+          type="email"
+          {...register('email', { required: true })}
+        />
+        {errors.email?.type === 'required' && <p>*Email is required</p>}
+        {/* Password */}
+        <label>Password</label>
+        <input
+          className={errors.password?.type === 'required' ? 'error' : ''}
           type="password"
-          value={password}
-          onChange={setPassword}></input>
-        <button>Login</button>
+          {...register('password', { required: true })}
+        />
+        {errors.password?.type === 'required' && <p>*Password is required</p>}
+
+        <div className="form-buttons">
+          <input type="submit" value="Login" />
+          <input onClick={() => navigate('/sign-up')} type="button" value="Register" />
+        </div>
       </form>
     </div>
   );

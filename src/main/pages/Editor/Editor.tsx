@@ -75,7 +75,7 @@ export const Editor: React.FC = () => {
         <div>
           <div>
             Users:
-            {users?.map((user, index) => (
+            {users?.map((user) => (
               <span> {user.name} </span>
             ))}
           </div>

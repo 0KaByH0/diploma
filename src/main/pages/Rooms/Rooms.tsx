@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import {
   joinRoomAction,
+  signOutAction,
   startFetchingRooms,
   stopFetchingRooms,
 } from '../../../redux/actions/sagaActions';
@@ -11,13 +12,19 @@ import { useAppSelector } from '../../../utils/hooks/redux';
 
 export const Rooms: React.FC = () => {
   const dispatch = useDispatch();
-  const rooms = useAppSelector(getRooms);
   const navigate = useNavigate();
+  const rooms = useAppSelector(getRooms);
 
   React.useEffect(() => {
+    const disconnect = () => {
+      window.confirm('Are u sure leave?') && dispatch(signOutAction());
+    };
     dispatch(startFetchingRooms());
+    window.addEventListener('popstate', disconnect);
+
     return () => {
       dispatch(stopFetchingRooms());
+      window.removeEventListener('popstate', disconnect);
     };
   }, []);
 
