@@ -16,9 +16,11 @@ import './Editor.style.scss';
 import { RoomsActions } from '../../../redux/slices/rooms.slice';
 import { Carets } from '../../components/Carets/Carets';
 import { codeAction, cursorAction, leaveAction } from '../../../redux/actions/sagaActions';
+import { useLocation } from 'react-router';
 
 export const Editor: React.FC = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const room = useAppSelector(getCurrentRoom);
   const isConnected = useAppSelector(getIsConnected);
   const users = useAppSelector(getRoomUsers);
@@ -49,9 +51,17 @@ export const Editor: React.FC = () => {
     return () => {
       window.removeEventListener('beforeunload', disconnect);
       window.removeEventListener('popstate', disconnect);
+      disconnect();
       dispatch(RoomsActions.clearRoom());
     };
-  }, []);
+  }, [location.pathname]);
+
+  // React.useEffect(() => {
+  //   return () => {
+  //     dispatch(leaveAction());
+  //     dispatch(RoomsActions.clearRoom());
+  //   };
+  // }, []);
 
   function onChange(newValue: any) {
     setCode(newValue);

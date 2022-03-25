@@ -11,7 +11,7 @@ export const Carets: React.FC = () => {
   return (
     <div>
       {users?.map((user, index) => (
-        <>
+        <div key={index}>
           {user.id !== userId && (
             <>
               {/* {showUser === user.id && ( */}
@@ -44,7 +44,7 @@ export const Carets: React.FC = () => {
               />
             </>
           )}
-        </>
+        </div>
       ))}
     </div>
   );

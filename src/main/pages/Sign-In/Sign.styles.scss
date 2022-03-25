@@ -152,7 +152,6 @@ $baseBtnBlueShadow: #2a93fc5b;
 
       :nth-child(1) {
         margin-right: 20px;
-        background-color: rgb(0, 0, 0);
 
         &:hover {
           background-color: $baseBtnGreen;
@@ -163,7 +162,6 @@ $baseBtnBlueShadow: #2a93fc5b;
 
       :nth-child(2) {
         margin-right: 20px;
-        background-color: black;
 
         &:hover {
           background-color: $baseBtnBlue;
@@ -181,6 +179,7 @@ $baseBtnBlueShadow: #2a93fc5b;
       cursor: pointer;
 
       border: 1px solid black;
+      background-color: black;
       border-radius: 0.475rem;
 
       font-family: 'Lato', sans-serif;
