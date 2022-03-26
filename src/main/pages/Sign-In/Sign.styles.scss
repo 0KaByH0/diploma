@@ -14,7 +14,7 @@ $baseBtnBlueShadow: #2a93fc5b;
   font-family: 'Lato', sans-serif;
   font-size: 1.2rem;
 
-  section {
+  section.info {
     background-color: black;
     color: white;
     display: grid;
@@ -37,6 +37,12 @@ $baseBtnBlueShadow: #2a93fc5b;
         line-height: 30px;
       }
     }
+  }
+
+  section {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    display: grid;
   }
 
   form {
@@ -88,11 +94,11 @@ $baseBtnBlueShadow: #2a93fc5b;
 
       &:hover {
         border: 2.5px solid #2a93fc;
-        box-shadow: 1px 2px 2px 2px #2a93fc41;
+        box-shadow: 1px 1px 1px 1px #2a93fc41;
       }
       &:focus {
         border: 2.5px solid #2a93fc;
-        box-shadow: 1px 2px 2px 2px #2a93fc3b;
+        box-shadow: 1px 1px 1px 1px #2a93fc3b;
       }
     }
 
@@ -156,7 +162,7 @@ $baseBtnBlueShadow: #2a93fc5b;
         &:hover {
           background-color: $baseBtnGreen;
           border: 1px solid $baseBtnGreen;
-          box-shadow: 1px 2px 2px 2px $baseBtnGreenShadow;
+          box-shadow: 1px 1px 1px 1px $baseBtnGreenShadow;
         }
       }
 
@@ -167,7 +173,7 @@ $baseBtnBlueShadow: #2a93fc5b;
           background-color: $baseBtnBlue;
           color: rgb(255, 255, 255);
           border: 1px solid $baseBtnBlue;
-          box-shadow: 1px 2px 2px 2px $baseBtnBlueShadow;
+          box-shadow: 1px 1px 1px 1px $baseBtnBlueShadow;
         }
       }
     }
@@ -194,11 +200,11 @@ $baseBtnBlueShadow: #2a93fc5b;
 
       &:hover {
         border: 2.5px solid red;
-        box-shadow: 1px 2px 2px 2px rgba(255, 0, 0, 0.5);
+        box-shadow: 1px 1px 1px 1px rgba(255, 0, 0, 0.5);
       }
       &:focus {
         border: 2.5px solid red;
-        box-shadow: 1px 2px 2px 2px rgba(255, 0, 0, 0.466);
+        box-shadow: 1px 1px 1px 1px rgba(255, 0, 0, 0.466);
       }
     }
   }

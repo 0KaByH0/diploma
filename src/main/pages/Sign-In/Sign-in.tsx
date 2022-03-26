@@ -30,7 +30,7 @@ export const SignIn: React.FC = () => {
 
   return (
     <div className="form-wrapper">
-      <section>
+      <section className="info">
         <div>
           <h2>Online Editor</h2>
           <h2>Sign In</h2>
@@ -43,29 +43,31 @@ export const SignIn: React.FC = () => {
           </h3>
         </div>
       </section>
-      <form className="sign-in" onSubmit={handleSubmit(onLogin)} autoComplete="off">
-        {/* Email */}
-        <label>Email</label>
-        <input
-          className={errors.email?.type === 'required' ? 'error' : ''}
-          type="email"
-          {...register('email', { required: true })}
-        />
-        {errors.email?.type === 'required' && <p>*Email is required</p>}
-        {/* Password */}
-        <label>Password</label>
-        <input
-          className={errors.password?.type === 'required' ? 'error' : ''}
-          type="password"
-          {...register('password', { required: true })}
-        />
-        {errors.password?.type === 'required' && <p>*Password is required</p>}
+      <section>
+        <form className="sign-in" onSubmit={handleSubmit(onLogin)} autoComplete="off">
+          {/* Email */}
+          <label>Email</label>
+          <input
+            className={errors.email?.type === 'required' ? 'error' : ''}
+            type="email"
+            {...register('email', { required: true })}
+          />
+          {errors.email?.type === 'required' && <p>*Email is required</p>}
+          {/* Password */}
+          <label>Password</label>
+          <input
+            className={errors.password?.type === 'required' ? 'error' : ''}
+            type="password"
+            {...register('password', { required: true })}
+          />
+          {errors.password?.type === 'required' && <p>*Password is required</p>}
 
-        <div className="form-buttons">
-          <input type="submit" value="Login" />
-          <input onClick={() => navigate('/sign-up')} type="button" value="Register" />
-        </div>
-      </form>
+          <div className="form-buttons">
+            <input type="submit" value="Login" />
+            <input onClick={() => navigate('/sign-up')} type="button" value="Register" />
+          </div>
+        </form>
+      </section>
     </div>
   );
 };

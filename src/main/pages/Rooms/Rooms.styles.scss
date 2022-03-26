@@ -1,0 +1,98 @@
+$baseBtnBlue: #2a93fcee;
+$baseBtnBlueShadow: #2a93fc5b;
+
+div.rooms {
+  width: 75%;
+
+  margin: 0 auto;
+}
+
+div.rooms-searcher {
+  width: 50%;
+  height: 75px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  position: relative;
+
+  svg.search {
+    position: absolute;
+    top: 25px;
+    left: 13px;
+  }
+
+  svg.filter {
+    width: 35px;
+    height: 30px;
+    fill: #000000;
+    cursor: pointer;
+
+    path.dark {
+      transition: 0.3s;
+      opacity: 1;
+    }
+
+    &:hover {
+      path.dark {
+        opacity: 0;
+      }
+    }
+  }
+
+  input {
+    width: 90%;
+    height: 45px;
+    padding: 10px 15px 10px 35px;
+    margin: 15px 0px;
+
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+
+    border-radius: 6px;
+    outline: none;
+    border: 1.5px solid black;
+
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+
+    &:hover {
+      border: 2px solid #2a93fc;
+      box-shadow: 1px 1px 1px 1px #2a93fc41;
+    }
+
+    &:focus {
+      border: 2px solid #2a93fc;
+      box-shadow: 1px 1px 1px 1px #2a93fc3b;
+    }
+  }
+}
+
+svg.filter {
+  path {
+    transition: 0.3s;
+  }
+  &:hover {
+    path {
+      fill: #778ca0;
+    }
+  }
+}
+
+ul.rooms-list {
+  width: 100%;
+  height: 550px;
+  border: 2px solid black;
+
+  > li {
+    padding: 30px;
+    margin-bottom: 10px;
+
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #2d333b;
+  }
+}

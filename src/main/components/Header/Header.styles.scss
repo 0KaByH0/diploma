@@ -3,7 +3,7 @@ header.header {
   height: 75px;
   position: fixed;
   color: rgb(0, 0, 0);
-  background-color: white;
+  background-color: #2d333b;
   z-index: 10000;
 
   padding: 0 30px;
@@ -24,58 +24,113 @@ header.header {
     cursor: pointer;
   }
 
-  div {
-    width: 550px;
+  div.container {
+    width: 700px;
     height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
 
-    h2 {
-      font-size: 1.4rem;
-      user-select: none;
+    div.user {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
 
-      cursor: default;
+      > svg {
+        margin-right: 10px;
+        margin-bottom: 4px;
+      }
+
+      h2 {
+        margin-bottom: 3px;
+        font-size: 1.4rem;
+        color: #cdd9e5;
+
+        user-select: none;
+
+        cursor: default;
+      }
     }
 
     nav {
-      width: 70%;
+      width: 100%;
       display: flex;
       justify-content: space-evenly;
 
       a {
-        font-size: 1.3rem;
-        font-weight: 450;
-        font-family: 'Lato', sans-serif;
-        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
         text-decoration: none;
 
-        margin-top: 2px;
-        border-bottom: 2px solid white;
+        :first-child {
+          margin-right: 10px;
+          cursor: pointer;
+        }
 
-        cursor: pointer;
+        label {
+          font-size: 1.3rem;
+          font-weight: 450;
+          font-family: 'Lato', sans-serif;
+          color: #cdd9e5;
 
-        -webkit-transition: 0.5s;
-        transition: 0.5s;
+          border-bottom: 3px solid #2d333b;
+
+          -webkit-transition: 0.5s;
+          transition: 0.5s;
+
+          cursor: pointer;
+        }
 
         &:hover {
-          border-bottom-color: black;
+          label {
+            border-bottom-color: white;
+          }
         }
 
         &.disabled {
           cursor: default;
-          border-bottom-color: white;
-          color: #ccc;
+
+          :first-child,
+          label {
+            cursor: default;
+            border-bottom-color: #2d333b;
+            color: rgba(204, 204, 204, 0.671);
+          }
         }
 
         &.active {
+          label {
+            border-bottom-color: rgb(21, 255, 0);
+          }
         }
       }
     }
 
+    svg.user {
+      width: 25px;
+      height: 25px;
+    }
+
+    svg.about {
+      width: 25px;
+      height: 25px;
+      margin-bottom: 3px;
+    }
+
+    svg.rooms {
+      width: 24px;
+      height: 24px;
+    }
+
+    svg.settings {
+      width: 22px;
+      height: 22px;
+    }
+
     button {
-      width: 80px;
+      width: 100px;
       height: 35px;
 
       color: white;

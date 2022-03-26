@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks/redux';
 
 //@ts-ignore
 import Logo from '../../data/logo.png';
+import { AboutIcon, RoomsIcon, SettingsIcon, UserIcon } from '../Icons/Header.icons';
 import './Header.styles.scss';
 
 export const Header: React.FC = () => {
@@ -16,6 +17,7 @@ export const Header: React.FC = () => {
   const userName = useAppSelector(getUserName);
   const isAuthed = useAppSelector(getIsAuthed);
 
+  const isActive = (link: string) => (location.pathname.includes(link) ? 'active' : '');
   const isInRoom = location.pathname.includes('rooms/');
 
   return (
@@ -24,22 +26,30 @@ export const Header: React.FC = () => {
         <>
           <header className="header">
             <img src={Logo} alt="logo" onClick={() => navigate('/rooms')} />
-            <div>
-              <h2>{userName}</h2>
+            <div className="container">
+              <div className="user">
+                <UserIcon />
+                <h2>{userName}</h2>
+              </div>
               <nav>
-                <Link className="active" to={'/about'}>
-                  About
+                <Link className={isActive('about')} to="/about">
+                  <AboutIcon />
+                  <label>About</label>
                 </Link>
-                <Link className="active" to={'/rooms'}>
-                  Rooms
+                <Link className={isActive('rooms')} to="/rooms">
+                  <RoomsIcon />
+                  <label>Rooms</label>
                 </Link>
                 <Link
-                  className={!isInRoom ? 'disabled' : ''}
+                  className={
+                    !isInRoom ? `disabled ${isActive('settings')}` : `${isActive('settings')}`
+                  }
                   to={!isInRoom ? location.pathname : '/settings'}>
-                  Settings
+                  <SettingsIcon />
+                  <label>Settings</label>
                 </Link>
               </nav>
-              <button onClick={() => dispatch(signOutAction())}>Logout</button>
+              <button onClick={() => dispatch(signOutAction())}>Exit</button>
             </div>
           </header>
           <div></div>

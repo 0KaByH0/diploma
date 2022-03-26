@@ -9,11 +9,31 @@ import {
 } from '../../../redux/actions/sagaActions';
 import { getRooms } from '../../../redux/selectors/rooms.selectors';
 import { useAppSelector } from '../../../utils/hooks/redux';
+import { useDebounce } from '../../../utils/hooks/useDebounce';
+import { Room } from '../../../utils/types/rooms.types';
+import { FilterIcon, SearchIcon } from '../../components/Icons/Rooms.icons';
+
+import './Rooms.styles.scss';
 
 export const Rooms: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const rooms = useAppSelector(getRooms);
+
+  const [search, setSearch] = React.useState<string>('');
+  const debounce = useDebounce(search, 100);
+
+  const [filteredRooms, setFilteredRooms] = React.useState<Room[] | []>(rooms);
+
+  React.useEffect(() => {
+    setFilteredRooms(rooms);
+  }, []);
+
+  React.useEffect(() => {
+    setFilteredRooms(
+      rooms.filter((room) => room.name.toLowerCase().includes(search.toLowerCase())),
+    );
+  }, [debounce]);
 
   React.useEffect(() => {
     const disconnect = () => {
@@ -34,13 +54,22 @@ export const Rooms: React.FC = () => {
   };
 
   return (
-    <div>
-      Rooms
-      <ul>
-        {rooms.map((room, index) => (
+    <div className="rooms">
+      <div className="rooms-searcher">
+        <SearchIcon />
+        <input
+          type="text"
+          placeholder="Search room"
+          value={search}
+          onChange={(e: any) => setSearch(e.target.value)}
+        />
+        <FilterIcon />
+      </div>
+      <ul className="rooms-list">
+        {filteredRooms.map((room, index) => (
           <li key={index} onClick={() => onRoomEnterned(room.id)}>
-            <span style={{ marginRight: 25 }}>{`Room: ${room.name}`}</span>
-            <span>{`Users: ${room.users.length}`}</span>
+            <span>{room.name}</span>
+            <span>{room.users.length}</span>
           </li>
         ))}
       </ul>
