@@ -27,7 +27,7 @@ export const Rooms: React.FC = () => {
 
   React.useEffect(() => {
     setFilteredRooms(rooms);
-  }, []);
+  }, [rooms]);
 
   React.useEffect(() => {
     setFilteredRooms(

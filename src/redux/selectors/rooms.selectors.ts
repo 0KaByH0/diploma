@@ -6,6 +6,10 @@ export const getRooms = (state: RootState) => state.rooms.rooms;
 
 export const getCurrentRoom = (state: RootState) => state.rooms.currentRoom as Room;
 
+export const getRoomCode = createSelector(getCurrentRoom, (room) => room.code);
+
+export const getRoomLang = createSelector(getCurrentRoom, (room) => room.language);
+
 export const getRoomUsers = createSelector(getCurrentRoom, (room) => room.users);
 
 export const getRoomId = createSelector(getCurrentRoom, (room) => room.id);

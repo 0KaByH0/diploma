@@ -1,0 +1,37 @@
+.caret-name {
+  font-size: 1.1rem;
+  background-color: black;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  opacity: 1;
+  height: 1.2rem;
+  overflow: hidden;
+  display: inline-block;
+  // text-decoration: blink;
+  // animation: blinker 5s linear infinite;
+}
+
+.caret {
+  display: inline-block;
+  position: absolute;
+  height: 1.65em;
+  width: 3px;
+
+  font-size: 12px;
+
+  background-color: black;
+  color: black;
+
+  overflow: hidden;
+  opacity: 0.65;
+
+  text-indent: -5px;
+  text-decoration: blink;
+  animation: blinker 0.85s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
