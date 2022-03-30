@@ -7,4 +7,5 @@ export const wsActions = {
   USER_DISCONNECTED: 'USER_DISCONNECTED',
   CODE: 'CODE',
   CURSOR: 'CURSOR',
+  CHAT: 'CHAT',
 };

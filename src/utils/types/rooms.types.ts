@@ -1,4 +1,4 @@
-import { Languages, User } from './app.types';
+import { Languages, Message, User } from './app.types';
 
 export type Room = {
   id: number;
@@ -6,6 +6,7 @@ export type Room = {
   users: User[];
   language: Languages;
   code: string;
+  messages: Message[];
 };
 
 export type RoomDisplay = {

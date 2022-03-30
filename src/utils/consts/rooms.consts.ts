@@ -6,4 +6,5 @@ export const emptyRoom = {
   users: [],
   language: Languages.JAVASCRIPT,
   code: '',
+  messages: [],
 };

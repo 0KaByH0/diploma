@@ -77,6 +77,8 @@ export const Editor: React.FC = () => {
     // dispatch(selectionAction({ start: e.cursor.row, end: e.cursor.column }));
   };
 
+  const getUserColor = () => {};
+
   return (
     <>
       {!isConnected ? (

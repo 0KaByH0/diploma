@@ -18,6 +18,7 @@ const MESSAGES = {
   USER_CONNECTED: 'USER_CONNECTED',
   USER_DISCONNECTED: 'USER_DISCONNECTED',
   SEND: 'SEND',
+  CHAT: 'CHAT',
   CODE: 'CODE',
   CURSOR: 'CURSOR',
   LEAVE: 'LEAVE',
@@ -27,7 +28,33 @@ let rooms = [
   {
     id: 1,
     name: 'First Room',
-    messages: [],
+    messages: [
+      {
+        user: {
+          name: 'Bro',
+          id: 123,
+        },
+        date: new Date().toLocaleDateString(),
+        type: 'CONNECTED',
+      },
+      {
+        user: {
+          name: 'Bro',
+          id: 123,
+        },
+        date: new Date().toLocaleDateString(),
+        text: 'Hi how are you',
+        type: 'INFO',
+      },
+      {
+        user: {
+          name: 'Bro',
+          id: 123,
+        },
+        date: new Date().toLocaleDateString(),
+        type: 'DISCONNECTED',
+      },
+    ],
     users: [],
     clients: [],
     language: 'javascript',
@@ -71,6 +98,15 @@ function onConnect(wsClient) {
 
           wsClient.send(JSON.stringify({ type: MESSAGES.CONNECTED, room: userRoom }));
 
+          userRoom.messages.push({
+            text: '',
+            date: new Date().toLocaleTimeString(),
+            user: {
+              name: parsedMessage?.user.name,
+              id: parsedMessage?.user.id,
+            },
+            type: 'CONNECTED',
+          });
           sendAll({ type: MESSAGES.USER_CONNECTED, users: userRoom.users }, userRoom.clients);
           break;
 
@@ -81,13 +117,17 @@ function onConnect(wsClient) {
           break;
 
         case MESSAGES.CURSOR:
-          const user = userRoom.users.find((user) => user.id === parsedMessage.user.id);
-          user.editor.position = { ...parsedMessage.position };
+          const userCursor = userRoom.users.find((user) => user.id === parsedMessage.user.id);
+          userCursor.editor.position = { ...parsedMessage.position };
 
-          sendAll({ type: MESSAGES.CURSOR, users: userRoom.users }, userRoom.clients);
+          sendAll({ type: MESSAGES.CURSOR, user: userCursor }, userRoom.clients);
           break;
 
         case MESSAGES.LEAVE:
+          const userToLeave = rooms
+            .find((room) => room.id === userRoom.id)
+            .users.find((user) => user.id === parsedMessage.userId);
+
           rooms = rooms.map((room) =>
             room.id === userRoom.id
               ? {
@@ -99,10 +139,35 @@ function onConnect(wsClient) {
           );
 
           const disConectedRoom = rooms.find((room) => room.id === userRoom.id);
+
+          disConectedRoom.messages.push({
+            text: '',
+            date: new Date().toLocaleTimeString(),
+            user: {
+              name: userToLeave.name,
+              id: parsedMessage.userId,
+            },
+            type: 'DISCONNECTED',
+          });
           sendAll(
             { type: MESSAGES.USER_DISCONNECTED, users: disConectedRoom.users },
             disConectedRoom.clients,
           );
+          break;
+
+        case MESSAGES.CHAT:
+          const userThatSendChat = userRoom.users.find((user) => user.id === parsedMessage.userId);
+          userRoom.messages.push({
+            text: parsedMessage.message,
+            date: new Date().toLocaleTimeString(),
+            user: {
+              name: userThatSendChat.name,
+              id: userThatSendChat.id,
+            },
+            type: 'INFO',
+          });
+
+          sendAll({ type: MESSAGES.CHAT, messages: userRoom.messages }, userRoom.clients);
           break;
 
         // case MESSAGES.DISCONNECT:

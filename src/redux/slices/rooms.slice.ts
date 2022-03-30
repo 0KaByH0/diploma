@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { emptyRoom } from '../../utils/consts/rooms.consts';
-import { User } from '../../utils/types/app.types';
+import { Message, User } from '../../utils/types/app.types';
 import { Room } from '../../utils/types/rooms.types';
 import { UserActions } from './user.slice';
 
@@ -54,6 +54,15 @@ const roomsSlice = createSlice({
     },
     refreshCode: (state, { payload }: PayloadAction<string>) => {
       state.currentRoom.code = payload;
+    },
+    refreshCursor: (state, { payload }: PayloadAction<User>) => {
+      const user = state.currentRoom.users.find((user) => user.id === payload.id);
+      if (user) {
+        user.editor.position = payload.editor.position;
+      }
+    },
+    refreshChat: (state, { payload }: PayloadAction<Message[]>) => {
+      state.currentRoom.messages = payload;
     },
   },
   extraReducers: (builder) => {

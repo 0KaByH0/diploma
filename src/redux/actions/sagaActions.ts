@@ -19,6 +19,7 @@ export const roomsAction = {
 export const editorAction = {
   CODE: 'CODE',
   CURSOR: 'CURSOR',
+  SEND_CHAT: 'SEND_CHAT',
 };
 
 // ROOMS ACTIONS
@@ -41,3 +42,5 @@ export const signOutAction = createAction(userAction.SIGN_OUT);
 export const codeAction = createAction<string>(editorAction.CODE);
 
 export const cursorAction = createAction<{ x: number; y: number }>(editorAction.CURSOR);
+
+export const sendMessageInChat = createAction<string>(editorAction.SEND_CHAT);

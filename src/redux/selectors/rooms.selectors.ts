@@ -12,6 +12,8 @@ export const getRoomLang = createSelector(getCurrentRoom, (room) => room.languag
 
 export const getRoomUsers = createSelector(getCurrentRoom, (room) => room.users);
 
+export const getChat = createSelector(getCurrentRoom, (room) => room.messages);
+
 export const getRoomId = createSelector(getCurrentRoom, (room) => room.id);
 
 export const getIsConnected = (state: RootState) => state.rooms.isConnected;

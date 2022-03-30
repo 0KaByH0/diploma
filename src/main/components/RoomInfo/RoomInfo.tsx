@@ -8,17 +8,24 @@ export const RoomInfo: React.FC = () => {
   const users = useAppSelector(getRoomUsers);
 
   return (
-    <section className="info">
-      <p>
-        <span>{room.name}</span>
-      </p>
-      <p>
-        Id: <span>{room.id}</span>
-      </p>
-      Users:
-      <ul>
+    <section className="room-info">
+      <div>
+        <p className="name">
+          <span>{room.name}</span>
+        </p>
+        <p className="id">
+          ID:
+          <span>{room.id}</span>
+        </p>
+      </div>
+      <ul className="users">
+        <span>Users</span>
         {users?.map((user) => (
-          <li>{user.name}</li>
+          <li>
+            <span>{user.name}</span>
+            <span>{user.company}</span>
+            <span className="color" style={{ backgroundColor: 'red' }}></span>
+          </li>
         ))}
       </ul>
     </section>

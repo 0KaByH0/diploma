@@ -1,4 +1,4 @@
-section.info {
+section.room-info {
   grid-row-start: 1;
   grid-row-end: 4;
   grid-column-start: 3;
@@ -6,4 +6,64 @@ section.info {
 
   width: 340px;
   height: 460px;
+
+  > div {
+    padding: 10px;
+    margin: 1px;
+    border: 2px solid #495369;
+    border-radius: 8px;
+  }
+
+  p.name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  p.id {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+  }
+
+  ul.users {
+    width: 100%;
+    height: calc(100% - 86.5px);
+    margin-top: 10px;
+
+    overflow-y: scroll;
+
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      height: 40px;
+      padding: 8px 25px;
+
+      font-size: 20px;
+      font-weight: 400;
+
+      > span.color {
+        width: 15px;
+        height: 15px;
+        border-radius: 30px;
+      }
+    }
+  }
 }
