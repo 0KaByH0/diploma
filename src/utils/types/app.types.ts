@@ -18,6 +18,7 @@ export type User = {
   password?: string;
   editor: {
     position: { x?: number; y?: number };
+    color: string;
     // selection: { start: number; end: number };
   };
 };

@@ -8,4 +8,6 @@ section.chat {
   grid-column-start: 1;
   grid-column-end: 4;
   border: 1px solid green;
+
+  overflow-y: scroll;
 }

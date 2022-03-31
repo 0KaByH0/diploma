@@ -28,7 +28,7 @@ export const SignUp: React.FC = () => {
         email,
         password,
         company,
-        editor: { position: { x: 0, y: 0 } },
+        editor: { position: { x: 0, y: 0 }, color: '' },
       }),
     );
   };

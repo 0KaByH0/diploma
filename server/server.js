@@ -34,7 +34,7 @@ let rooms = [
           name: 'Bro',
           id: 123,
         },
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleTimeString(),
         type: 'CONNECTED',
       },
       {
@@ -42,7 +42,7 @@ let rooms = [
           name: 'Bro',
           id: 123,
         },
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleTimeString(),
         text: 'Hi how are you',
         type: 'INFO',
       },
@@ -51,7 +51,7 @@ let rooms = [
           name: 'Bro',
           id: 123,
         },
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleTimeString(),
         type: 'DISCONNECTED',
       },
     ],
@@ -93,11 +93,10 @@ function onConnect(wsClient) {
 
       switch (parsedMessage.type) {
         case MESSAGES.CONNECT:
-          userRoom.users.push(parsedMessage?.user);
-          userRoom.clients.push({ id: parsedMessage?.user.id, wsClient });
-
           wsClient.send(JSON.stringify({ type: MESSAGES.CONNECTED, room: userRoom }));
 
+          userRoom.users.push(parsedMessage?.user);
+          userRoom.clients.push({ id: parsedMessage?.user.id, wsClient });
           userRoom.messages.push({
             text: '',
             date: new Date().toLocaleTimeString(),
@@ -107,7 +106,9 @@ function onConnect(wsClient) {
             },
             type: 'CONNECTED',
           });
-          sendAll({ type: MESSAGES.USER_CONNECTED, users: userRoom.users }, userRoom.clients);
+
+          sendAll({ type: MESSAGES.CHAT, messages: userRoom.messages }, userRoom.clients);
+          sendAll({ type: MESSAGES.USER_CONNECTED, user: parsedMessage?.user }, userRoom.clients);
           break;
 
         case MESSAGES.CODE:
@@ -117,10 +118,10 @@ function onConnect(wsClient) {
           break;
 
         case MESSAGES.CURSOR:
-          const userCursor = userRoom.users.find((user) => user.id === parsedMessage.user.id);
-          userCursor.editor.position = { ...parsedMessage.position };
+          const user1 = userRoom.users.find((user) => user.id === parsedMessage.user.id);
+          user1.editor.position = { ...parsedMessage.position };
 
-          sendAll({ type: MESSAGES.CURSOR, user: userCursor }, userRoom.clients);
+          sendAll({ type: MESSAGES.CURSOR, user: user1 }, userRoom.clients);
           break;
 
         case MESSAGES.LEAVE:
@@ -149,10 +150,7 @@ function onConnect(wsClient) {
             },
             type: 'DISCONNECTED',
           });
-          sendAll(
-            { type: MESSAGES.USER_DISCONNECTED, users: disConectedRoom.users },
-            disConectedRoom.clients,
-          );
+          sendAll({ type: MESSAGES.USER_DISCONNECTED, user: userToLeave }, disConectedRoom.clients);
           break;
 
         case MESSAGES.CHAT:

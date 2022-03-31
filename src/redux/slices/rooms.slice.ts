@@ -4,6 +4,8 @@ import { Message, User } from '../../utils/types/app.types';
 import { Room } from '../../utils/types/rooms.types';
 import { UserActions } from './user.slice';
 
+const getRandomColor = () => `#${((Math.random() * 0xffffff) << 0).toString(16)}`;
+
 type RoomsState = {
   rooms: Room[];
   currentRoom: Room;
@@ -31,6 +33,10 @@ const roomsSlice = createSlice({
     setRoom: (state, { payload }: PayloadAction<Room>) => {
       state.isConnected = true;
       state.currentRoom = payload;
+      state.currentRoom.users = state.currentRoom.users.map((user) => ({
+        ...user,
+        editor: { ...user.editor, color: getRandomColor() },
+      }));
     },
     clearRoom: (state) => {
       state.currentRoom = emptyRoom;
@@ -46,8 +52,14 @@ const roomsSlice = createSlice({
     },
 
     //REFRESH
-    refreshUsers: (state, { payload }: PayloadAction<User[]>) => {
-      state.currentRoom.users = payload;
+    connectedUser: (state, { payload }: PayloadAction<User>) => {
+      state.currentRoom.users.push({
+        ...payload,
+        editor: { ...payload.editor, color: getRandomColor() },
+      });
+    },
+    disConnectedUser: (state, { payload }: PayloadAction<User>) => {
+      state.currentRoom.users = state.currentRoom.users.filter((user) => user.id !== payload.id);
     },
     refreshRoom: (state, { payload }: PayloadAction<Room>) => {
       state.currentRoom = payload;

@@ -33,14 +33,16 @@ function* listenForSocketMessages(roomId: number): SagaIterator {
           yield put(RoomsActions.setIsConnected(false));
           break;
         case wsActions.USER_CONNECTED:
+          yield put(RoomsActions.connectedUser(parsedPayload.user));
+          break;
         case wsActions.USER_DISCONNECTED:
-          yield put(RoomsActions.refreshUsers(parsedPayload.users));
+          yield put(RoomsActions.disConnectedUser(parsedPayload.user));
           break;
         case wsActions.CODE:
           yield put(RoomsActions.refreshCode(parsedPayload.code));
           break;
         case wsActions.CURSOR:
-          // yield put(RoomsActions.refreshCursor(parsedPayload.users));
+          yield put(RoomsActions.refreshCursor(parsedPayload.user));
           break;
         case wsActions.CHAT:
           yield put(RoomsActions.refreshChat(parsedPayload.messages));

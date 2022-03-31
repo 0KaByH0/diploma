@@ -7,6 +7,7 @@ import { useScroll } from '../../../utils/hooks/useScroll';
 import { RoomsActions } from '../../../redux/slices/rooms.slice';
 import { codeAction, cursorAction, leaveAction } from '../../../redux/actions/sagaActions';
 import {
+  getCurrentRoom,
   getIsConnected,
   getRoomCode,
   getRoomId,
@@ -26,20 +27,23 @@ export const Editor: React.FC = () => {
   const location = useLocation();
   const isConnected = useAppSelector(getIsConnected);
 
-  const roomId = useAppSelector(getRoomId);
+  const room = useAppSelector(getCurrentRoom);
   const roomCode = useAppSelector(getRoomCode);
-  const roomLang = useAppSelector(getRoomLang);
 
   const [code, setCode] = React.useState('');
   const [lang, setLang] = React.useState(Languages.JAVASCRIPT);
-  const [theme, setTheme] = React.useState('github');
+  // const [theme, setTheme] = React.useState('github');
 
   const { scrollX, scrollY, onScroll } = useScroll();
 
   React.useEffect(() => {
+    setCode(room.code);
+    setLang(room.language);
+  }, [room.id]);
+
+  React.useEffect(() => {
     setCode(roomCode);
-    setLang(roomLang);
-  }, [roomId]);
+  }, [roomCode]);
 
   React.useEffect(() => {
     const disconnect = () => dispatch(leaveAction());

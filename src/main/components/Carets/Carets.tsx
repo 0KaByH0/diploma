@@ -55,9 +55,9 @@ export const Carets: React.FC<CaretsProps> = ({ scrollX, scrollY }) => {
               <div
                 className="caret-name"
                 style={{
-                  //16px fontsize - 16 diff
+                  //16px fontsize - 17.5 diff
                   //14px fontsize - 19 diff
-                  top: getPosX(user, 55), //51.5
+                  top: getPosX(user, 53.5), //51.5
                   left: getPosY(user, 52),
                 }}>
                 {user.name}
@@ -67,7 +67,7 @@ export const Carets: React.FC<CaretsProps> = ({ scrollX, scrollY }) => {
                 onMouseOver={() => setShowUser(user.id)}
                 onMouseLeave={() => setShowUser(-1)}
                 style={{
-                  // background: user.editor.color,
+                  background: user.editor.color,
                   top: getPosX(user, 74), //67.5
                   left: getPosY(user, 52),
                 }}
