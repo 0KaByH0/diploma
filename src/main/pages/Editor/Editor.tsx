@@ -10,8 +10,6 @@ import {
   getCurrentRoom,
   getIsConnected,
   getRoomCode,
-  getRoomId,
-  getRoomLang,
 } from '../../../redux/selectors/rooms.selectors';
 
 import { Languages } from '../../../utils/types/app.types';
@@ -21,6 +19,7 @@ import { Carets } from '../../components/Carets/Carets';
 import { Console } from '../../components/Console/Console';
 import { RoomInfo } from '../../components/RoomInfo/RoomInfo';
 import { Chat } from '../../components/Chat/Chat';
+import { LiveChat } from '../../components/LiveChat/LiveChat';
 
 export const Editor: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -81,8 +80,6 @@ export const Editor: React.FC = () => {
     // dispatch(selectionAction({ start: e.cursor.row, end: e.cursor.column }));
   };
 
-  const getUserColor = () => {};
-
   return (
     <>
       {!isConnected ? (
@@ -95,7 +92,7 @@ export const Editor: React.FC = () => {
               placeholder="Placeholder Text"
               mode={lang}
               theme={'nord_dark'}
-              height="740px"
+              height="745px"
               width="650px"
               name="editor"
               onChange={onChange}
@@ -118,8 +115,9 @@ export const Editor: React.FC = () => {
             <Carets scrollX={scrollX} scrollY={scrollY} />
           </section>
           <main>
-            <Console code={code} />
             <RoomInfo />
+            <LiveChat />
+            <Console code={code} />
             <Chat />
           </main>
         </div>

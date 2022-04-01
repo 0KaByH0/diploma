@@ -6,6 +6,46 @@ div.editor {
 
   main {
     display: grid;
+    grid-auto-rows: 100px;
+    grid-auto-columns: 100px;
+
     width: calc(100% - 650px);
+
+    section.room-info {
+      height: 300px;
+
+      grid-row-start: 1;
+      grid-row-end: 5;
+      grid-column-start: 1;
+      grid-column-end: 5;
+    }
+
+    section.console {
+      height: 446px;
+
+      grid-row-start: 4;
+      grid-row-end: 8;
+      grid-column-start: 1;
+      grid-column-end: 5;
+    }
+
+    section.live {
+      width: calc(100% - 10px);
+      min-height: 400px;
+
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 5;
+      grid-column-end: 9;
+    }
+
+    section.chat {
+      width: calc(100% - 10px);
+
+      grid-row-start: 2;
+      grid-row-end: 8;
+      grid-column-start: 5;
+      grid-column-end: 9;
+    }
   }
 }

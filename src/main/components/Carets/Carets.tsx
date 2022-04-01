@@ -57,6 +57,7 @@ export const Carets: React.FC<CaretsProps> = ({ scrollX, scrollY }) => {
                 style={{
                   //16px fontsize - 17.5 diff
                   //14px fontsize - 19 diff
+                  background: user.editor.color,
                   top: getPosX(user, 53.5), //51.5
                   left: getPosY(user, 52),
                 }}>

@@ -1,17 +1,13 @@
 section.room-info {
-  grid-row-start: 1;
-  grid-row-end: 4;
-  grid-column-start: 3;
-  grid-column-end: 4;
-
-  width: 340px;
-  height: 460px;
+  border: 2px solid #495369;
+  border-radius: 8px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 
   > div {
     padding: 10px;
     margin: 1px;
-    border: 2px solid #495369;
-    border-radius: 8px;
+    border-bottom: 2px solid #495369;
   }
 
   p.name {

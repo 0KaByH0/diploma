@@ -1,17 +1,9 @@
 section.console {
-  grid-row-start: 1;
-  grid-row-end: 4;
-  grid-column-start: 1;
-  grid-column-end: 3;
-
-  width: 450px;
-  height: 460px;
   padding: 25px 10px 8px;
   position: relative;
 
   border: 2px solid #0f3f77a8;
-  border-radius: 10px;
-  border-top-left-radius: 4px;
+  border-radius: 4px;
   background-color: #16273b;
 
   font-size: 20px;

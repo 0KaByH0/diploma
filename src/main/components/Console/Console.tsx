@@ -27,7 +27,14 @@ export const Console: React.FC<ConsoleProps> = ({ code }) => {
   return (
     <section className="console">
       <ClearConsole onClick={() => setResult([])} />
-      {result.map((str) => (str ? <p>{str}</p> : null))}
+      {result.map((str) =>
+        str ? (
+          <p>
+            {'>>> '}
+            {str}
+          </p>
+        ) : null,
+      )}
     </section>
   );
 };

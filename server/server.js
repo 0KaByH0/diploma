@@ -55,6 +55,15 @@ let rooms = [
         type: 'DISCONNECTED',
       },
     ],
+    liveChat: [
+      {
+        user: {
+          name: 'sfd',
+          id: 123,
+        },
+        stream: 'aasdfasdf',
+      },
+    ],
     users: [],
     clients: [],
     language: 'javascript',
@@ -64,6 +73,7 @@ let rooms = [
     id: 2,
     name: 'Second Room',
     messages: [],
+    liveChat: [],
     users: [],
     clients: [],
     language: 'javascript',
@@ -168,32 +178,10 @@ function onConnect(wsClient) {
           sendAll({ type: MESSAGES.CHAT, messages: userRoom.messages }, userRoom.clients);
           break;
 
-        // case MESSAGES.DISCONNECT:
-        //   const roomToDisConnect = rooms.find((room) => room.id === parsedMessage.roomId);
-        //   if (roomToDisConnect) {
-        //     roomToDisConnect.messages.push({
-        //       message: '',
-        //       date: new Date().toLocaleTimeString(),
-        //       userName: parsedMessage.userName,
-        //       type: 'DISCONNECTED',
-        //     });
+        case MESSAGES.CHAT:
+          // sendAll({ type: MESSAGES.CHAT, messages: userRoom.messages }, userRoom.clients);
+          break;
 
-        //     rooms = rooms.map((room) =>
-        //       room.id === roomToDisConnect.id
-        //         ? {
-        //             ...roomToDisConnect,
-        //             users: room.users.filter((user) => user.userName !== parsedMessage.userName),
-        //           }
-        //         : room,
-        //     );
-
-        //     const disConectedRoom = rooms.find((room) => room.id === roomToDisConnect.id);
-        //     sendAll(
-        //       { type: MESSAGES.USER_DISCONNECTED, room: normalizeRoom(disConectedRoom) },
-        //       disConectedRoom.users,
-        //     );
-        //   }
-        //   break;
         default:
           break;
       }
