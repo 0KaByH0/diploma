@@ -8,4 +8,6 @@ export const wsActions = {
   CODE: 'CODE',
   CURSOR: 'CURSOR',
   CHAT: 'CHAT',
+  JOINED: 'JOINED',
+  LEAVED_LIVE: 'LEAVED_LIVE',
 };

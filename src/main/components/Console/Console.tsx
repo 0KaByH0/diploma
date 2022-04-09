@@ -16,11 +16,12 @@ export const Console: React.FC<ConsoleProps> = ({ code }) => {
   React.useEffect(() => {
     try {
       const res = eval(code);
-      console.log(res);
+      // console.log(res);
       setResult((prevResult) => [...prevResult, res]);
     } catch (error) {
+      // TODO handle erorrs
       const k: Error = error as any;
-      console.log(k.name, k.message);
+      // console.log(k.name, k.message);
     }
   }, [debounce]);
 

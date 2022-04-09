@@ -85,42 +85,44 @@ export const Editor: React.FC = () => {
       {!isConnected ? (
         <div>Loading ...</div>
       ) : (
-        <div className="editor">
-          <section className="editor-field">
-            <AceEditor
-              focus
-              placeholder="Placeholder Text"
-              mode={lang}
-              theme={'nord_dark'}
-              height="745px"
-              width="650px"
-              name="editor"
-              onChange={onChange}
-              onSelectionChange={onSelectionChange}
-              onCursorChange={onCursorChange}
-              onScroll={onScroll}
-              fontSize={14}
-              showPrintMargin={true}
-              showGutter={true}
-              highlightActiveLine={true}
-              value={code}
-              setOptions={{
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true,
-                enableSnippets: true,
-                showLineNumbers: true,
-                tabSize: 2,
-              }}
-            />
-            <Carets scrollX={scrollX} scrollY={scrollY} />
-          </section>
-          <main>
-            <RoomInfo />
-            <LiveChat />
-            <Console code={code} />
-            <Chat />
-          </main>
-        </div>
+        <>
+          <div className="editor">
+            <section className="editor-field">
+              <AceEditor
+                focus
+                placeholder="Placeholder Text"
+                mode={lang}
+                theme={'nord_dark'}
+                height="745px"
+                width="650px"
+                name="editor"
+                onChange={onChange}
+                onSelectionChange={onSelectionChange}
+                onCursorChange={onCursorChange}
+                onScroll={onScroll}
+                fontSize={14}
+                showPrintMargin={true}
+                showGutter={true}
+                highlightActiveLine={true}
+                value={code}
+                setOptions={{
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  enableSnippets: true,
+                  showLineNumbers: true,
+                  tabSize: 2,
+                }}
+              />
+              <Carets scrollX={scrollX} scrollY={scrollY} />
+            </section>
+            <main>
+              <RoomInfo />
+              <Console code={code} />
+              <Chat />
+              <LiveChat />
+            </main>
+          </div>
+        </>
       )}
     </>
   );

@@ -47,6 +47,19 @@ function* listenForSocketMessages(roomId: number): SagaIterator {
         case wsActions.CHAT:
           yield put(RoomsActions.refreshChat(parsedPayload.messages));
           break;
+        case wsActions.LEAVED_LIVE:
+          yield put(RoomsActions.onUserLeave(parsedPayload.userPeerId));
+          break;
+        case wsActions.JOINED:
+          yield put(
+            RoomsActions.onNewUser({
+              userId: parsedPayload.userId,
+              name: parsedPayload.name,
+              userPeerId: parsedPayload.userPeerId,
+            }),
+          );
+
+          break;
         default:
           break;
       }

@@ -8,6 +8,7 @@ export const userAction = {
 };
 
 export const roomsAction = {
+  JOIN_LIVE: 'JOIN_LIVE',
   START_FETCH_ROOMS: 'START_FETCHING_ROOMS',
   STOP_FETCH_ROOMS: 'STOP_FETCHING_ROOMS',
   JOIN: 'JOIN',
@@ -23,6 +24,8 @@ export const editorAction = {
 };
 
 // ROOMS ACTIONS
+export const joinLive = createAction<string>(roomsAction.JOIN_LIVE);
+
 export const startFetchingRooms = createAction(roomsAction.START_FETCH_ROOMS);
 
 export const stopFetchingRooms = createAction(roomsAction.STOP_FETCH_ROOMS);

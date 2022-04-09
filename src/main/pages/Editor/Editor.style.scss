@@ -31,10 +31,11 @@ div.editor {
 
     section.live {
       width: calc(100% - 10px);
-      min-height: 400px;
+      height: 300px;
+      width: 400px;
 
       grid-row-start: 1;
-      grid-row-end: 2;
+      grid-row-end: 4;
       grid-column-start: 5;
       grid-column-end: 9;
     }
@@ -42,7 +43,7 @@ div.editor {
     section.chat {
       width: calc(100% - 10px);
 
-      grid-row-start: 2;
+      grid-row-start: 4;
       grid-row-end: 8;
       grid-column-start: 5;
       grid-column-end: 9;

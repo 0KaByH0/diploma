@@ -16,4 +16,13 @@ export const getChat = createSelector(getCurrentRoom, (room) => room.messages);
 
 export const getRoomId = createSelector(getCurrentRoom, (room) => room.id);
 
+export const getNewUserPeerId = createSelector(
+  getCurrentRoom,
+  (room) => room.liveChat.at(-1)?.userPeerId,
+);
+
+export const getLiveChat = createSelector(getCurrentRoom, (room) => room.liveChat);
+
+export const getIsChatOpen = (state: RootState) => state.rooms.isOpenChat;
+
 export const getIsConnected = (state: RootState) => state.rooms.isConnected;

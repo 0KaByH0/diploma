@@ -10,7 +10,7 @@ div.chat-field {
   background-color: #ffffff;
   color: black;
 
-  height: 450px;
+  height: 400px;
 
   border: 2px solid #0f3f77a8;
   border-top: 2px;
@@ -83,9 +83,10 @@ div.chat-field {
         background-color: #311188ea;
         border-radius: 10px;
 
-        position: relative;
-
         border-bottom-left-radius: 0px;
+
+        position: relative;
+        z-index: 1;
       }
     }
 

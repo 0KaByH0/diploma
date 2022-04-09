@@ -7,6 +7,7 @@ export type Room = {
   language: Languages;
   code: string;
   messages: Message[];
+  liveChat: { userPeerId: string; userId: number; name: string }[];
 };
 
 export type RoomDisplay = {

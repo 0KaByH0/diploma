@@ -4,6 +4,11 @@ const cors = require('cors');
 
 const wsServer = new WebSocket.Server({ port: 5002 });
 const app = express();
+const server = require('http').Server(app);
+const { ExpressPeerServer } = require('peer');
+const peerServer = ExpressPeerServer(server, {
+  debug: true,
+});
 
 // UTILS
 const sendAll = (message, roomUsers) =>
@@ -22,6 +27,9 @@ const MESSAGES = {
   CODE: 'CODE',
   CURSOR: 'CURSOR',
   LEAVE: 'LEAVE',
+  JOINED: 'JOINED',
+  JOIN_LIVE: 'JOIN_LIVE',
+  LEAVED_LIVE: 'LEAVED_LIVE',
 };
 
 let rooms = [
@@ -55,15 +63,7 @@ let rooms = [
         type: 'DISCONNECTED',
       },
     ],
-    liveChat: [
-      {
-        user: {
-          name: 'sfd',
-          id: 123,
-        },
-        stream: 'aasdfasdf',
-      },
-    ],
+    liveChat: [],
     users: [],
     clients: [],
     language: 'javascript',
@@ -82,12 +82,30 @@ let rooms = [
 ];
 
 app.use(cors());
+app.use('/peerjs', peerServer);
+
 app.get('/rooms', (req, res) => {
   res.send(JSON.stringify(rooms));
 });
-app.listen(5001);
+server.listen(5001);
 
 wsServer.on('connection', onConnect);
+
+peerServer.on('disconnect', (data) => {
+  console.log('user leave chat', data.id);
+
+  const userRoomDisconnected = rooms.find((room) =>
+    room.liveChat.find((live) => live.userPeerId === data.id),
+  );
+  try {
+    sendAll({ type: MESSAGES.LEAVED_LIVE, userPeerId: data.id }, userRoomDisconnected.clients);
+    rooms = rooms.map((room) =>
+      room.id === userRoomDisconnected.id
+        ? { ...room, liveChat: room.liveChat.filter((live) => live.userPeerId !== data.id) }
+        : room,
+    );
+  } catch (error) {}
+});
 
 function onConnect(wsClient) {
   console.log('User connected');
@@ -178,8 +196,25 @@ function onConnect(wsClient) {
           sendAll({ type: MESSAGES.CHAT, messages: userRoom.messages }, userRoom.clients);
           break;
 
-        case MESSAGES.CHAT:
-          // sendAll({ type: MESSAGES.CHAT, messages: userRoom.messages }, userRoom.clients);
+        case MESSAGES.JOIN_LIVE:
+          const userThatJoin = userRoom.users.find((user) => user.id === parsedMessage.userId);
+
+          userRoom.liveChat.push({
+            userPeerId: parsedMessage.userPeerId,
+            userId: userThatJoin.id,
+            name: userThatJoin.name,
+          });
+
+          sendAll(
+            {
+              type: MESSAGES.JOINED,
+              userId: userThatJoin.id,
+              name: userThatJoin.name,
+              userPeerId: parsedMessage.userPeerId,
+            },
+            userRoom.clients,
+          );
+
           break;
 
         default:

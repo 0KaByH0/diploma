@@ -11,6 +11,7 @@ type RoomsState = {
   currentRoom: Room;
   isLoading: boolean;
   isConnected: boolean;
+  isOpenChat: boolean;
 };
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   currentRoom: emptyRoom,
   isConnected: false,
   isLoading: false,
+  isOpenChat: true,
 } as RoomsState;
 
 const roomsSlice = createSlice({
@@ -41,6 +43,9 @@ const roomsSlice = createSlice({
     clearRoom: (state) => {
       state.currentRoom = emptyRoom;
       state.isConnected = false;
+    },
+    setChat: (state, { payload }: PayloadAction<boolean>) => {
+      state.isOpenChat = payload;
     },
 
     //LOADING
@@ -75,6 +80,21 @@ const roomsSlice = createSlice({
     },
     refreshChat: (state, { payload }: PayloadAction<Message[]>) => {
       state.currentRoom.messages = payload;
+    },
+    onNewUser: (
+      state,
+      { payload }: PayloadAction<{ userId: number; name: string; userPeerId: string }>,
+    ) => {
+      state.currentRoom.liveChat.push({
+        userId: payload.userId,
+        name: payload.name,
+        userPeerId: payload.userPeerId,
+      });
+    },
+    onUserLeave: (state, { payload }: PayloadAction<string>) => {
+      state.currentRoom.liveChat = state.currentRoom.liveChat.filter(
+        (live) => live.userPeerId !== payload,
+      );
     },
   },
   extraReducers: (builder) => {

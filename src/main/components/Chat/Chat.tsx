@@ -1,8 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks/redux';
 import { sendMessageInChat } from '../../../redux/actions/sagaActions';
 
-import { getChat, getCurrentRoom } from '../../../redux/selectors/rooms.selectors';
+import { getChat, getCurrentRoom, getIsChatOpen } from '../../../redux/selectors/rooms.selectors';
 import { getUser } from '../../../redux/selectors/user.selectors';
 
 import './Chat.styles.scss';
@@ -17,6 +18,7 @@ const getInvitationMessage = (type: string) =>
 export const Chat = () => {
   const dispatch = useAppDispatch();
   const room = useAppSelector(getCurrentRoom);
+  const isChatOpen = useAppSelector(getIsChatOpen);
   const currentUser = useAppSelector(getUser);
   const chat = useAppSelector(getChat);
   const [message, setMessage] = React.useState('');
@@ -34,11 +36,12 @@ export const Chat = () => {
   };
 
   return (
-    <section className="chat">
-      <div className={`chat-field`} ref={filedRef}>
+    <section className={classNames('chat', { close: !isChatOpen })}>
+      <div className="chat-field" ref={filedRef}>
         {chat.map((message) => (
           <p className={message.user.id === currentUser.id ? 'current' : ''}>
             {message.type !== 'INFO' ? (
+              // TODO
               //Maybe better to show modal that user connected
               <div
                 className={`invitation-block ${

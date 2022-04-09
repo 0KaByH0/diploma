@@ -7,4 +7,5 @@ export const emptyRoom = {
   language: Languages.JAVASCRIPT,
   code: '',
   messages: [],
+  liveChat: [],
 };

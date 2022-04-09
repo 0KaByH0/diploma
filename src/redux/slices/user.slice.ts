@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../utils/types/app.types';
-import { RoomsActions } from './rooms.slice';
 
 type UserState = {
   id: number;
@@ -10,7 +9,6 @@ type UserState = {
   isAuth: boolean;
   editor: {
     position: { x?: number; y?: number };
-    // selection: { start: number; end: number };
   };
 };
 

@@ -36,7 +36,19 @@ function* leaveRoom() {
   }
 }
 
+function* joinLive({ payload }: any) {
+  const roomId: number = yield select(getRoomId);
+  const userId: number = yield select(getUserId);
+
+  try {
+    yield call(send, { type: 'JOIN_LIVE', roomId, userId, userPeerId: payload });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* roomsSaga() {
   yield takeEvery(roomsAction.START_FETCH_ROOMS, getRooms);
   yield takeEvery(roomsAction.LEAVE, leaveRoom);
+  yield takeEvery(roomsAction.JOIN_LIVE, joinLive);
 }
