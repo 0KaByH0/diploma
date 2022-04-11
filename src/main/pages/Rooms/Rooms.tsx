@@ -7,33 +7,26 @@ import {
   startFetchingRooms,
   stopFetchingRooms,
 } from '../../../redux/actions/sagaActions';
-import { getRooms } from '../../../redux/selectors/rooms.selectors';
-import { useAppSelector } from '../../../utils/hooks/redux';
-import { useDebounce } from '../../../utils/hooks/useDebounce';
-import { Room } from '../../../utils/types/rooms.types';
-import { FilterIcon, SearchIcon } from '../../components/Icons/Rooms.icons';
+import { getIcon } from '../../../utils/helpers/getIcon';
+import { useRooms } from '../../../utils/hooks/useRooms';
+import { VideoIcon } from '../../components/Icons/Editor.icons';
+import { UserIcon } from '../../components/Icons/Header.icons';
+import {
+  FilterIcon,
+  PasswordOffIcon,
+  PasswordOnIcon,
+  SearchIcon,
+} from '../../components/Icons/Rooms.icons';
+import { FilterModal } from '../../modals/FilterModal/FilterModal';
 
 import './Rooms.styles.scss';
 
 export const Rooms: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const rooms = useAppSelector(getRooms);
-
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>('');
-  const debounce = useDebounce(search, 100);
-
-  const [filteredRooms, setFilteredRooms] = React.useState<Room[] | []>(rooms);
-
-  React.useEffect(() => {
-    setFilteredRooms(rooms);
-  }, [rooms]);
-
-  React.useEffect(() => {
-    setFilteredRooms(
-      rooms.filter((room) => room.name.toLowerCase().includes(search.toLowerCase())),
-    );
-  }, [debounce]);
+  const rooms = useRooms(search);
 
   React.useEffect(() => {
     const disconnect = () => {
@@ -49,8 +42,18 @@ export const Rooms: React.FC = () => {
   }, []);
 
   const onRoomEnterned = (roomId: number) => {
-    dispatch(joinRoomAction(roomId));
-    navigate(`/rooms/${roomId}`);
+    const room = rooms.find((room) => room.id === roomId);
+    if (room?.password.length) {
+      if (window.prompt() === room.password) {
+        dispatch(joinRoomAction(roomId));
+        navigate(`/rooms/${roomId}`);
+      } else {
+        alert('Incorrect room password');
+      }
+    } else {
+      dispatch(joinRoomAction(roomId));
+      navigate(`/rooms/${roomId}`);
+    }
   };
 
   return (
@@ -63,16 +66,27 @@ export const Rooms: React.FC = () => {
           value={search}
           onChange={(e: any) => setSearch(e.target.value)}
         />
-        <FilterIcon />
+        <FilterIcon onClick={() => setOpenModal((prev) => !prev)} />
       </div>
       <ul className="rooms-list">
-        {filteredRooms.map((room, index) => (
+        {rooms.map((room, index) => (
           <li key={index} onClick={() => onRoomEnterned(room.id)}>
             <span>{room.name}</span>
-            <span>{room.users.length}</span>
+            <span className="users-online">
+              <UserIcon />
+              Online: {room.users.length}
+            </span>
+            <span>Max: {room.maxUsers}</span>
+            <span>
+              {room.isLiveChat ? <VideoIcon video={false} /> : <VideoIcon video={true} />}
+            </span>
+            <span>{room.password ? <PasswordOnIcon /> : <PasswordOffIcon />}</span>
+            <span className="lang">{getIcon(room.language)}</span>
           </li>
         ))}
       </ul>
+
+      {openModal && <FilterModal setOpen={setOpenModal} />}
     </div>
   );
 };

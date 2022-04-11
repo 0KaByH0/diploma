@@ -8,4 +8,8 @@ export const emptyRoom = {
   code: '',
   messages: [],
   liveChat: [],
+  isLiveChat: true,
+  password: '',
+  company: '',
+  maxUsers: 10,
 };

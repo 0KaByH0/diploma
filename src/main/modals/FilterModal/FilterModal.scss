@@ -1,0 +1,22 @@
+div.modal__filter {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: black;
+
+  h2,
+  button {
+    align-self: center;
+  }
+
+  h2 {
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}

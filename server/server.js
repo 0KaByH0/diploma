@@ -68,6 +68,9 @@ let rooms = [
     clients: [],
     language: 'javascript',
     code: 'const a = "fffffff";',
+    password: '',
+    maxUsers: 5,
+    isLiveChat: false,
   },
   {
     id: 2,
@@ -78,6 +81,9 @@ let rooms = [
     clients: [],
     language: 'javascript',
     code: 'const a = 123;',
+    password: '123',
+    maxUsers: 10,
+    isLiveChat: true,
   },
 ];
 

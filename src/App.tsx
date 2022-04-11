@@ -17,6 +17,7 @@ export function App() {
     <Provider store={store}>
       <BrowserRouter>
         <AppComponent />
+        <div id="app-modal" />
       </BrowserRouter>
     </Provider>
   );

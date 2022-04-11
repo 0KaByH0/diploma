@@ -119,7 +119,7 @@ export const Editor: React.FC = () => {
               <RoomInfo />
               <Console code={code} />
               <Chat />
-              <LiveChat />
+              {room.isLiveChat && <LiveChat />}
             </main>
           </div>
         </>

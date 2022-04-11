@@ -8,6 +8,10 @@ export type Room = {
   code: string;
   messages: Message[];
   liveChat: { userPeerId: string; userId: number; name: string }[];
+  isLiveChat: boolean;
+  maxUsers: number;
+  password: string;
+  company: string;
 };
 
 export type RoomDisplay = {
@@ -15,4 +19,14 @@ export type RoomDisplay = {
   name: string;
   userAmount: number;
   language: Languages;
+};
+
+export type RoomFilter = {
+  on: boolean;
+  searchBy: 'name' | 'id';
+  withPass: boolean;
+  withUsersMore: number;
+  maxUsers: number;
+  withLiveChat: boolean;
+  lang: 'any' | Languages;
 };

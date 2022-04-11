@@ -26,3 +26,5 @@ export const getLiveChat = createSelector(getCurrentRoom, (room) => room.liveCha
 export const getIsChatOpen = (state: RootState) => state.rooms.isOpenChat;
 
 export const getIsConnected = (state: RootState) => state.rooms.isConnected;
+
+export const getFilterSettings = (state: RootState) => state.rooms.filter;

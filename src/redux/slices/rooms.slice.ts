@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { emptyRoom } from '../../utils/consts/rooms.consts';
-import { Message, User } from '../../utils/types/app.types';
-import { Room } from '../../utils/types/rooms.types';
+import { Languages, Message, User } from '../../utils/types/app.types';
+import { Room, RoomFilter } from '../../utils/types/rooms.types';
 import { UserActions } from './user.slice';
 
 const getRandomColor = () => `#${((Math.random() * 0xffffff) << 0).toString(16)}`;
@@ -12,6 +12,7 @@ type RoomsState = {
   isLoading: boolean;
   isConnected: boolean;
   isOpenChat: boolean;
+  filter: RoomFilter;
 };
 
 const initialState = {
@@ -20,6 +21,15 @@ const initialState = {
   isConnected: false,
   isLoading: false,
   isOpenChat: true,
+  filter: {
+    on: false,
+    searchBy: 'name',
+    withPass: false,
+    withUsersMore: 0,
+    maxUsers: 10,
+    withLiveChat: true,
+    lang: 'any',
+  },
 } as RoomsState;
 
 const roomsSlice = createSlice({
@@ -46,6 +56,9 @@ const roomsSlice = createSlice({
     },
     setChat: (state, { payload }: PayloadAction<boolean>) => {
       state.isOpenChat = payload;
+    },
+    saveFilters: (state, { payload }: PayloadAction<RoomFilter>) => {
+      state.filter = payload;
     },
 
     //LOADING
